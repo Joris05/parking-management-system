@@ -26,7 +26,7 @@ class Category extends CI_Controller
     */
     public function index()
     {
-        $data['page_title'] = 'Category List';
+        $data['page_title'] = 'Manage Category';
         $data['category_data'] = $this->model_category->get_category();
 
         $this->load->view('template/header', $data);
@@ -82,6 +82,9 @@ class Category extends CI_Controller
         }
     }
 
+    /*
+        Display Edit Category page and update category into the database
+    */
     public function edit($id = null)
     {
         if($id){
@@ -118,6 +121,9 @@ class Category extends CI_Controller
                 }
             }
             else{
+                /*
+                    Get the details of the Category by ID in the database
+                */
                 $data['category_data'] = $this->model_category->get_category_details($id);
                 $this->load->view('template/header', $data);
                 $this->load->view('template/side_menubar');
@@ -128,6 +134,9 @@ class Category extends CI_Controller
         }
     }
 
+    /*
+        Delete the category in the database
+    */
     public function delete($id){
         if($id){
             $delete = $this->model_category->delete($id);

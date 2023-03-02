@@ -71,6 +71,10 @@
             if(!confirm('Are you sure you want to remove this record?')) return false;
             window.location = '<?php echo base_url('category/delete/'); ?>' + id;
         }
+        function deleteRate(id){
+            if(!confirm('Are you sure you want to remove this record?')) return false;
+            window.location = '<?php echo base_url('rates/delete/'); ?>' + id;
+        }
     </script>
 
 </body>

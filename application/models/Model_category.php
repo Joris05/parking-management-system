@@ -14,6 +14,14 @@ class Model_category extends CI_Model
         return $query->result_array();
     }
 
+    public function get_active_category()
+    {
+        $this->db->select('*');
+        $this->db->where('active', 1);
+        $query = $this->db->get('vehicle_category'); 
+        return $query->result_array();
+    }
+
     public function create($data)
     {
         $this->db->insert('vehicle_category', $data);

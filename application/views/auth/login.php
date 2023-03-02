@@ -73,7 +73,9 @@
                                         </button>
                                     </form>
                                     <?php
-                                        echo '<div class="alert alert-danger mt-2 text-center" role="alert">'.validation_errors().'</div>';
+                                         if(validation_errors()){
+                                            echo '<div class="alert alert-danger mt-2 text-center" role="alert">'.validation_errors().'</div>';
+                                        }
                                     ?>
                                     <?php if(!empty($errors)) {
                                         echo '<div class="alert alert-danger mt-2 text-center" role="alert">'.$errors.'</div>';
