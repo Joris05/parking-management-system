@@ -148,12 +148,12 @@ class Rates extends CI_Controller
                     }
                     else{
                         $this->session->set_flashdata('error', 'Error occurred!!');
-                        redirect('rates/create', 'refresh');
+                        redirect('rates/edit/' . $id, 'refresh');
                     }
                 }
                 else{
                     $this->session->set_flashdata('error', 'Rate Name is already exist!!');
-                    redirect('rates/create', 'refresh');
+                    redirect('rates/edit/' . $id, 'refresh');
                 }
             }
             else{

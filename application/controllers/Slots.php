@@ -58,13 +58,13 @@ class Slots extends CI_Controller
         		'availability_status' => 1
         	);
 
-            $check = $this->model_slots->check_slot($category_name);
+            $check = $this->model_slots->check_slot($slot_name);
 
             if($check == false){
                 $create = $this->model_slots->create($data);
                 if($create == true){
                     $this->session->set_flashdata('success', 'Successfully created');
-                    redirect('category', 'refresh');
+                    redirect('slots', 'refresh');
                 }
                 else{
                     $this->session->set_flashdata('error', 'Error occurred!!');
@@ -82,6 +82,75 @@ class Slots extends CI_Controller
             $this->load->view('template/header_menu');
             $this->load->view('slots/create');
             $this->load->view('template/footer');
+        }
+    }
+
+    /*
+        Display Edit Slot page and update slot into the database
+    */
+    public function edit($id = null)
+    {
+        if($id){
+            $data['page_title'] = 'Edit Slot';
+
+            $this->form_validation->set_rules('slot_name', 'Slot name', 'required|trim');
+            $this->form_validation->set_rules('status', 'Status', 'required|trim');
+
+            if ($this->form_validation->run() == TRUE) {
+                /* table column slots and html post fields */
+                $slot_name = $this->input->post('slot_name');
+                $status = $this->input->post('status');
+                $data = array(
+                    'slot_name' => $slot_name,
+                    'active' => $status,
+                );
+
+                $check = $this->model_slots->check_other_slot($slot_name, $id);
+
+                if($check == false){
+                    $create = $this->model_slots->update($data, $id);
+                    if($create == true){
+                        $this->session->set_flashdata('success', 'Successfully updated');
+                        redirect('slots', 'refresh');
+                    }
+                    else{
+                        $this->session->set_flashdata('error', 'Error occurred!!');
+                        redirect('slots/edit/' . $id, 'refresh');
+                    }
+                }
+                else{
+                    $this->session->set_flashdata('error', 'Slot Name is already exist!!');
+                    redirect('slots/edit/' . $id, 'refresh');
+                }
+            }
+            else{
+                /*
+                    Get the details of the Slot by ID in the database
+                */
+                $data['slot_data'] = $this->model_slots->get_slot_details($id);
+                $this->load->view('template/header', $data);
+                $this->load->view('template/side_menubar');
+                $this->load->view('template/header_menu');
+                $this->load->view('slots/edit', $data);
+                $this->load->view('template/footer');
+            }
+        }
+    }
+
+    /*
+        Delete the slot in the database
+    */
+    public function delete($id){
+        if($id){
+            $delete = $this->model_slots->delete($id);
+            if($delete == true) {
+                $this->session->set_flashdata('success', 'Successfully removed');
+                redirect('slots', 'refresh');
+            }
+            else {
+                $this->session->set_flashdata('error', 'Error occurred!!');
+                redirect('slots', 'refresh');
+            }
         }
     }
 

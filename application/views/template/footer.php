@@ -75,6 +75,23 @@
             if(!confirm('Are you sure you want to remove this record?')) return false;
             window.location = '<?php echo base_url('rates/delete/'); ?>' + id;
         }
+        function deleteSlots(id){
+            if(!confirm('Are you sure you want to remove this record?')) return false;
+            window.location = '<?php echo base_url('slots/delete/'); ?>' + id;
+        }
+
+        $("#vehicle_cat").on('change', function() {
+        var value = $(this).val();
+
+        $.ajax({
+          url: <?php echo "'". base_url('parking/get_category_rate/') . "'"; ?>  + value,
+          type: 'post',
+          dataType: 'json',
+          success:function(response) {
+            $("#vehicle_rate").html(response);
+          }
+        });
+      });
     </script>
 
 </body>
