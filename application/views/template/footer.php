@@ -79,6 +79,10 @@
             if(!confirm('Are you sure you want to remove this record?')) return false;
             window.location = '<?php echo base_url('slots/delete/'); ?>' + id;
         }
+        function deleteParking(id,slotid){
+            if(!confirm('Are you sure you want to remove this record?')) return false;
+            window.location = '<?php echo base_url('parking/delete/'); ?>' + id + '/' + slotid;
+        }
 
         $("#vehicle_cat").on('change', function() {
         var value = $(this).val();

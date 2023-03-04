@@ -20,4 +20,23 @@ class Model_parking extends CI_Model
         return $query->result_array();
     }
 
+    public function get_total_parking()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('parking');
+        return $query->num_rows();
+    }
+
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+		$delete = $this->db->delete('parking');
+		if($delete){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

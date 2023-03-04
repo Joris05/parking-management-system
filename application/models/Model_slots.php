@@ -14,6 +14,13 @@ class Model_slots extends CI_Model
         return $query->result_array();
     }
 
+    public function get_total_slots()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('slots');
+        return $query->num_rows();
+    }
+
     public function check_slot($slot_name)
     {
         $this->db->select('*');

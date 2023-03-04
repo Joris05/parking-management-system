@@ -65,14 +65,14 @@ class Parking extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
 
-        	$parking_code = strtoupper('parking-'.substr(md5(uniqid(mt_rand(), true)), 0, 6));
+        	$parking_code = strtoupper('p-'.substr(md5(uniqid(mt_rand(), true)), 0, 6));
             $vehicle_cat = $this->input->post('vehicle_cat');
             $vehicle_rate = $this->input->post('vehicle_rate');
             $parking_slot = $this->input->post('parking_slot');
 
         	$data = array(
         		'parking_code' => $parking_code,
-        		'vechile_cat_id' => $vehicle_cat,
+        		'vehicle_cat_id' => $vehicle_cat,
         		'rate_id' => $vehicle_rate,
         		'slot_id' => $parking_slot,
         		'in_time' => strtotime('now'),
@@ -118,6 +118,40 @@ class Parking extends CI_Controller
             $this->load->view('parking/create', $data);
             $this->load->view('template/footer');
 		}
+    }
+
+    /*
+        Display Edit Parking page and update parking into the database
+    */
+    public function edit($id=null)
+    {
+        if($id){
+
+        }
+    }
+
+    
+    /*
+        Delete the parking in the database
+    */
+    public function delete($id, $slotid)
+    {
+        if($id && $slotid){
+            // now available the slot
+            $slot_data = array(
+                'availability_status' => 1
+            );
+            $this->model_slots->update_slot_availability($slot_data, $slotid);
+            $delete = $this->model_parking->delete($id);
+            if($delete == true) {
+                $this->session->set_flashdata('success', 'Successfully removed');
+                redirect('parking', 'refresh');
+            }
+            else {
+                $this->session->set_flashdata('error', 'Error occurred!!');
+                redirect('parking', 'refresh');
+            }
+        }
     }
 
     /*

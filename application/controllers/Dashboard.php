@@ -7,6 +7,10 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->is_logged_in();
+
+        $this->load->model('model_slots');
+		$this->load->model('model_users');
+		$this->load->model('model_parking');
     }
 
     /*
@@ -27,10 +31,15 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data['page_title'] = 'Dasboard';
+
+        $data['total_slots'] = $this->model_slots->get_total_slots();
+        $data['total_users'] = $this->model_users->get_total_users();
+        $data['total_parking'] = $this->model_parking->get_total_parking();
+
         $this->load->view('template/header', $data);
         $this->load->view('template/side_menubar');
         $this->load->view('template/header_menu');
-        $this->load->view('dashboard/index');
+        $this->load->view('dashboard/index', $data);
         $this->load->view('template/footer');
     }
 
