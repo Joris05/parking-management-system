@@ -3,9 +3,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
-    <a href="<?php echo base_url('slots/create'); ?>" class="btn btn-primary mb-2">
-        <i class="fas fa-plus"></i> Add Slot
-    </a>
+    <?php if(in_array('createSlots', $user_permission)): ?>
+        <a href="<?php echo base_url('slots/create'); ?>" class="btn btn-primary mb-2">
+            <i class="fas fa-plus"></i> Add Slot
+        </a>
+    <?php endif; ?>
 
     <?php if($this->session->flashdata('success')): ?>
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -32,7 +34,9 @@
                             <th>Slot Name</th>
                             <th>Status</th>
                             <th>Availability</th>
-                            <th>Action</th>
+                            <?php if(in_array('updateSlots', $user_permission) || in_array('deleteSlots', $user_permission)): ?>
+                                <th>Action</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,21 +59,27 @@
                                     <span class="badge badge-warning">No</span>
                                     <?php } ?>
                                 </td>
+                                <?php if(in_array('updateSlots', $user_permission) || in_array('deleteSlots', $user_permission)): ?>
                                 <td>
-                                    <a 
-                                        href="<?php echo base_url('slots/edit/'.$data['id']); ?>"
-                                        title="edit"
-                                        class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a 
-                                        href="#" onclick="deleteSlots('<?php echo $data['id']; ?>')"
-                                        title="delete"
-                                        class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <?php if(in_array('updateSlots', $user_permission)): ?>
+                                        <a 
+                                            href="<?php echo base_url('slots/edit/'.$data['id']); ?>"
+                                            title="edit"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if(in_array('deleteSlots', $user_permission)): ?>
+                                        <a 
+                                            href="#" onclick="deleteSlots('<?php echo $data['id']; ?>')"
+                                            title="delete"
+                                            class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    <?php endif; ?>
                                 </td>
-                                </tr>
+                                <?php endif; ?>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

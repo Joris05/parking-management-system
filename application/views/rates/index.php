@@ -3,9 +3,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
-    <a href="<?php echo base_url('rates/create'); ?>" class="btn btn-primary mb-2">
-        <i class="fas fa-plus"></i> Add Rate
-    </a>
+    <?php if(in_array('createRates', $user_permission)): ?>
+        <a href="<?php echo base_url('rates/create'); ?>" class="btn btn-primary mb-2">
+            <i class="fas fa-plus"></i> Add Rate
+        </a>
+    <?php endif; ?>
 
     <?php if($this->session->flashdata('success')): ?>
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -34,7 +36,9 @@
                             <th>Rate</th>
                             <th>Category</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <?php if(in_array('updateRates', $user_permission) || in_array('deleteRates', $user_permission)): ?>
+                                <th>Action</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,17 +56,23 @@
                                     <span class="badge badge-warning">Inactive</span>
                                     <?php } ?>
                                 </td>
+                                <?php if(in_array('updateRates', $user_permission) || in_array('deleteRates', $user_permission)): ?>
                                 <td>
+                                    <?php if(in_array('updateRates', $user_permission)): ?>
                                     <a
                                       href="<?php echo base_url('rates/edit/'.$v['rate_info']['id']) ?>"
                                       class="btn btn-primary btn-sm"><i
                                       class="fa fa-edit"></i></a>
+                                    <?php endif; ?>
+                                    <?php if(in_array('deleteRates', $user_permission)): ?>
                                     <a
                                       onclick="deleteRate('<?php echo $v['rate_info']['id']; ?>')"
                                       href="#"
                                       class="btn btn-danger btn-sm"><i
                                       class="fa fa-trash"></i></a>
+                                    <?php endif; ?>
                                 </td>
+                                <?php endif; ?>
                             </tr>
                         <?php } ?>
                     </tbody>

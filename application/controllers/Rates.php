@@ -9,6 +9,11 @@ class Rates extends CI_Controller
         $this->is_logged_in();
         $this->load->model('model_rates');
         $this->load->model('model_category');
+        $this->load->model('model_groups');
+
+        $user_id = $this->session->userdata('id');
+        $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
+        $this->permission = unserialize($this->group_data['permission']);
     }
 
     /*
@@ -27,6 +32,13 @@ class Rates extends CI_Controller
     */
     public function index()
     {
+        // check if allowed to access the page
+        if(!in_array('viewRates', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Manage Rate';
 
         $rates_data = $this->model_rates->get_rate();
@@ -53,6 +65,13 @@ class Rates extends CI_Controller
     */
     public function create()
     {
+        // check if allowed to access the page
+        if(!in_array('createRates', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Add Rate';
 
         $this->form_validation->set_rules('rate_name', 'Rate Name', 'required|trim');
@@ -113,6 +132,13 @@ class Rates extends CI_Controller
     */
     public function edit($id = null)
     {
+        // check if allowed to access the page
+        if(!in_array('updateRates', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         if($id){
             $data['page_title'] = 'Edit Rate';
 
@@ -181,6 +207,10 @@ class Rates extends CI_Controller
         Delete the rates in the database
     */
     public function delete($id){
+        // check if allowed to access the page
+        if(!in_array('deleteRates', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
         if($id){
             $delete = $this->model_rates->delete($id);
             if($delete == true) {

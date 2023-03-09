@@ -69,6 +69,11 @@
                         Back
                     </a>
                 </form>
+                <?php if(validation_errors()): ?>
+                    <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                        <?php echo validation_errors('<li>', '</li>'); ?>
+                    </div>
+                <?php endif; ?>
                 <?php if($this->session->flashdata('error')): ?>
                 <div class="alert alert-danger alert-dismissible mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

@@ -8,6 +8,11 @@ class Slots extends CI_Controller
         parent::__construct();
         $this->is_logged_in();
         $this->load->model('model_slots');
+        $this->load->model('model_groups');
+
+        $user_id = $this->session->userdata('id');
+        $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
+        $this->permission = unserialize($this->group_data['permission']);
     }
 
     /*
@@ -26,6 +31,13 @@ class Slots extends CI_Controller
     */
     public function index()
     {
+        // check if allowed to access the page
+        if(!in_array('viewSlots', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Manage Slots';
 
         $slot_data = $this->model_slots->get_slots();
@@ -43,6 +55,13 @@ class Slots extends CI_Controller
     */
     public function create()
     {
+        // check if allowed to access the page
+        if(!in_array('createSlots', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Add Slot';
 
         $this->form_validation->set_rules('slot_name', 'Slot name', 'required|trim');
@@ -90,6 +109,13 @@ class Slots extends CI_Controller
     */
     public function edit($id = null)
     {
+        // check if allowed to access the page
+        if(!in_array('updateSlots', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         if($id){
             $data['page_title'] = 'Edit Slot';
 
@@ -140,7 +166,12 @@ class Slots extends CI_Controller
     /*
         Delete the slot in the database
     */
-    public function delete($id){
+    public function delete($id)
+    {
+        // check if allowed to access the page
+        if(!in_array('deleteSlots', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
         if($id){
             $delete = $this->model_slots->delete($id);
             if($delete == true) {

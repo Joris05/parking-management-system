@@ -3,9 +3,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
-    <a href="<?php echo base_url('parking/create'); ?>" class="btn btn-primary mb-2">
-        <i class="fas fa-plus"></i> Add Parking
-    </a>
+    <?php if(in_array('createParking', $user_permission)): ?>
+        <a href="<?php echo base_url('parking/create'); ?>" class="btn btn-primary mb-2">
+            <i class="fas fa-plus"></i> Add Parking
+        </a>
+    <?php endif; ?>
 
     <?php if($this->session->flashdata('success')): ?>
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -38,7 +40,9 @@
                             <th>Slot</th>
                             <th style="width:90px">Rate Type</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <?php if(in_array('updateParking', $user_permission) || in_array('deleteParking', $user_permission) || in_array('viewParking', $user_permission)): ?>
+                                <th>Action</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,24 +87,32 @@
                                 }
                                 ?> 
                             </td>
+                            <?php if(in_array('updateParking', $user_permission) || in_array('deleteParking', $user_permission) || in_array('viewParking', $user_permission)): ?>
                             <td>
-                                <a
-                                  href="<?php echo base_url('parking/edit/'.$v['parking']['id']) ?>"
-                                  class="btn btn-primary btn-sm">
-                                  <i class="fa fa-edit"></i>
-                                </a>
-                                <a
-                                  href="#"
-                                  onclick="deleteParking('<?php echo $v['parking']['id'] ?>','<?php echo $v['slot']['id'] ?>')"
-                                  class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                                <a
-                                  onclick="printParking(<?php echo "'". base_url('parking/printInvoice/'.$v['parking']['id']) . "'"; ?>)"
-                                  class="btn btn-success btn-sm">
-                                  <i class="fa fa-print"></i>
-                                </a>
+                                <?php if(in_array('updateParking', $user_permission)): ?>
+                                    <a
+                                    href="<?php echo base_url('parking/edit/'.$v['parking']['id']) ?>"
+                                    class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if(in_array('deleteParking', $user_permission)): ?>
+                                    <a
+                                    href="#"
+                                    onclick="deleteParking('<?php echo $v['parking']['id'] ?>','<?php echo $v['slot']['id'] ?>')"
+                                    class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if(in_array('viewParking', $user_permission)): ?>
+                                    <a
+                                    onclick="printParking('<?php echo base_url('parking/print_invoice/'.$v['parking']['id']); ?>')"
+                                    class="btn btn-success btn-sm">
+                                    <i class="fa fa-print"></i>
+                                    </a>
+                                <?php endif; ?>
                             </td>
+                            <?php endif; ?>
                         </tr>
                         <?php
                     } ?>

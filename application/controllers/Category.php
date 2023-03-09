@@ -8,6 +8,11 @@ class Category extends CI_Controller
         parent::__construct();
         $this->is_logged_in();
         $this->load->model('model_category');
+        $this->load->model('model_groups');
+
+        $user_id = $this->session->userdata('id');
+        $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
+        $this->permission = unserialize($this->group_data['permission']);
     }
 
     /*
@@ -26,6 +31,13 @@ class Category extends CI_Controller
     */
     public function index()
     {
+        // check if allowed to access the page
+        if(!in_array('viewCategory', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Manage Category';
         $data['category_data'] = $this->model_category->get_category();
 
@@ -41,15 +53,22 @@ class Category extends CI_Controller
     */
     public function create()
     {
-        $data['page_title'] = 'Add Category';
 
+        // check if allowed to access the page
+        if(!in_array('createCategory', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
+        $data['page_title'] = 'Add Category';
         $this->form_validation->set_rules('category_name', 'Category name', 'required|trim');
 		$this->form_validation->set_rules('category_active', 'Status', 'required|trim');
 
         if ($this->form_validation->run() == TRUE) {
-            /* table column category and html post fields */
             $category_name = $this->input->post('category_name');
             $category_status = $this->input->post('category_active');
+            /* table column category and html post fields */
             $data = array(
         		'name' => $category_name,
         		'active' => $category_status
@@ -87,6 +106,13 @@ class Category extends CI_Controller
     */
     public function edit($id = null)
     {
+        // check if allowed to access the page
+        if(!in_array('updateCategory', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         if($id){
             $data['page_title'] = 'Edit Category';
 
@@ -138,6 +164,10 @@ class Category extends CI_Controller
         Delete the category in the database
     */
     public function delete($id){
+        // check if allowed to access the page
+        if(!in_array('deleteCategory', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
         if($id){
             $delete = $this->model_category->delete($id);
             if($delete == true) {

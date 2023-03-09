@@ -8,6 +8,11 @@ class Company extends CI_Controller
         parent::__construct();
         $this->is_logged_in();
         $this->load->model('model_company');
+        $this->load->model('model_groups');
+
+        $user_id = $this->session->userdata('id');
+        $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
+        $this->permission = unserialize($this->group_data['permission']);
     }
 
     /*
@@ -26,6 +31,13 @@ class Company extends CI_Controller
     */
     public function index()
     {
+        // check if allowed to access the page
+        if(!in_array('updateCompany', $this->permission)) {
+			redirect('errors', 'refresh');
+		}
+        // access permission
+        $data['user_permission'] = unserialize($this->group_data['permission']);
+
         $data['page_title'] = 'Manage Company';
         $company_id = 1;
 

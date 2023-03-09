@@ -7,16 +7,7 @@
     <div class="col-md-5">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="" method="post">
-                    <label>Groups</label>
-                    <div class="form-group">
-                        <select class="form-control" id="groups" name="groups" required="true">
-                            <option value="">Select Groups</option>
-                            <?php foreach ($group_data as $k => $v): ?>
-                            <option <?php if($user_group['id'] == $v['id']) { echo 'selected'; } ?> value="<?php echo $v['id'] ?>"><?php echo $v['group_name'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
+                <form action="<?php echo base_url('users/setting'); ?>" method="post">
                     <label>Username</label>
                     <div class="form-group">
                         <input
@@ -122,7 +113,12 @@
                         Back
                     </a>
                 </form>
-                <?php if(validation_errors()): ?>
+                <?php if($this->session->flashdata('success')): ?>
+                    <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo $this->session->flashdata('success'); ?>
+                </div>
+                <?php elseif(validation_errors()): ?>
                     <div class="alert alert-danger alert-dismissible mt-2" role="alert">
                     <?php echo validation_errors('<li>', '</li>'); ?>
                     </div>

@@ -39,4 +39,25 @@ class Model_parking extends CI_Model
         }
     }
 
+    public function get_parking_details($id)
+    {
+        $this->db->select('*');
+        $this->db->where('id', $id);
+        $query = $this->db->get('parking'); 
+        $result = $query->row_array();
+        return $result;
+    }
+
+    public function update($data, $id)
+    {
+        $this->db->where('id', $id);
+		$update = $this->db->update('parking', $data);
+        if($update){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
