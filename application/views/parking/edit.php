@@ -60,6 +60,15 @@
                                        
                                     </select>
                                 </div>
+                                <label>Customer Name</label>
+                                <div class="form-group">
+                                    <input
+                                      type="text"
+                                      name="customer_name"
+                                      class="form-control"
+                                      value="<?= $save_parking_data['customer']; ?>"
+                                      autocomplete="off">
+                                </div>
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>

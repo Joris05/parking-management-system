@@ -80,6 +80,7 @@ class Parking extends CI_Controller
         $this->form_validation->set_rules('parking_slot', 'Slot', 'required');
 		$this->form_validation->set_rules('vehicle_cat', 'Category', 'required');
 		$this->form_validation->set_rules('vehicle_rate', 'Rate', 'required');
+		$this->form_validation->set_rules('customer_name', 'Customer Name', 'required');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
@@ -88,10 +89,12 @@ class Parking extends CI_Controller
             $vehicle_cat = $this->input->post('vehicle_cat');
             $vehicle_rate = $this->input->post('vehicle_rate');
             $parking_slot = $this->input->post('parking_slot');
+            $customer = $this->input->post('customer_name');
 
             /* table column parking and html post fields */
         	$data = array(
         		'parking_code' => $parking_code,
+				'customer' => $customer,
         		'vehicle_cat_id' => $vehicle_cat,
         		'rate_id' => $vehicle_rate,
         		'slot_id' => $parking_slot,
@@ -158,6 +161,7 @@ class Parking extends CI_Controller
             $this->form_validation->set_rules('parking_slot', 'Slot', 'required');
             $this->form_validation->set_rules('vehicle_cat', 'Category', 'required');
             $this->form_validation->set_rules('vehicle_rate', 'Rate', 'required');
+			$this->form_validation->set_rules('customer_name', 'Customer Name', 'required');
     
             if ($this->form_validation->run() == TRUE) {
                 // true case
@@ -172,10 +176,12 @@ class Parking extends CI_Controller
                 $vehicle_cat = $this->input->post('vehicle_cat');
                 $vehicle_rate = $this->input->post('vehicle_rate');
                 $parking_slot = $this->input->post('parking_slot');
+				$customer = $this->input->post('customer_name');
 	        	$data = array(
 	        		'vehicle_cat_id' => $vehicle_cat,
 	        		'rate_id' => $vehicle_rate,
 	        		'slot_id' => $parking_slot,
+					'customer' => $customer
 	        	);
 
 	        	$update_parking_data = $this->model_parking->update($data, $id);
@@ -345,6 +351,7 @@ class Parking extends CI_Controller
 
 			$check_in_date = date("Y-m-d", $parking_data['in_time']);
 			$check_in = date("h:i a", $parking_data['in_time']);
+			$slot = $this->model_slots->get_slot_details($parking_data['slot_id']);
 
 			$html = '<html>
 				<head>
@@ -377,6 +384,7 @@ class Parking extends CI_Controller
 								</tr>
 								<tr>
 									<td>Vehicle type: '.ucwords($vehicle_category['name']).' </td>
+									<td>Slot #: '.$slot['slot_name'].'</td>
 								</tr>
 								<tr>
 									<td>Parking no: '.$parking_data['parking_code'].' </td>
