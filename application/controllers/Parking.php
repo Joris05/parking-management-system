@@ -383,12 +383,16 @@ class Parking extends CI_Controller
 									<td>Time: '.$check_in.'</td>
 								</tr>
 								<tr>
-									<td>Vehicle type: '.ucwords($vehicle_category['name']).' </td>
+									<td>Parking no: '.$parking_data['parking_code'].' </td>
 									<td>Slot #: '.$slot['slot_name'].'</td>
 								</tr>
 								<tr>
-									<td>Parking no: '.$parking_data['parking_code'].' </td>
+									<td>Vehicle type: '.ucwords($vehicle_category['name']).' </td>
 								</tr>
+								<tr>
+									<td>Customer Name: '.$parking_data['customer'].' </td>
+								</tr>
+								
 							</table>
 
 							<p> For you own convenience, please do not loose the slip. </p>
