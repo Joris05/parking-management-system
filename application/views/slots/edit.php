@@ -8,6 +8,20 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <form action="" method="post">
+                    <label>Category</label>
+                    <div class="form-group">
+                        <select
+                            name="vehicle_cat"
+                            required="true"
+                            id="vehicle_cat"
+                            class="form-control">
+                            <option value="">Select</option>
+                                <?php foreach ($vehicle_cat as $k => $v): ?>
+                                <option <?php echo ($v['id'] == $slot_data['vehicle_cat_id']) ? ' selected' :''  ?> value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </select>
+                    </div>
                     <label>Slot Name</label>
                     <div class="form-group">
                         <input

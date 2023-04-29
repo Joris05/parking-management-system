@@ -76,7 +76,6 @@ class Rates extends CI_Controller
 
         $this->form_validation->set_rules('rate_name', 'Rate Name', 'required|trim');
 		$this->form_validation->set_rules('category_name', 'Category', 'required|trim');
-		$this->form_validation->set_rules('type', 'Type', 'required|trim');
 		$this->form_validation->set_rules('rate', 'Rate', 'required|integer|trim');
 		$this->form_validation->set_rules('rate_status', 'Status', 'required|trim');
 
@@ -84,7 +83,7 @@ class Rates extends CI_Controller
             /* table column rates and html post fields */
             $rate_name = $this->input->post('rate_name');
             $category_name = $this->input->post('category_name');
-            $type = $this->input->post('type');
+            $type = 1;
             $rate = $this->input->post('rate');
             $rate_status = $this->input->post('rate_status');
 

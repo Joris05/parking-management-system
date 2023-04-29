@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 03:47 AM
+-- Generation Time: Apr 29, 2023 at 04:38 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -72,6 +72,7 @@ INSERT INTO `groups` (`id`, `group_name`, `permission`) VALUES
 CREATE TABLE `parking` (
   `id` int(11) NOT NULL,
   `parking_code` varchar(255) NOT NULL,
+  `customer` varchar(150) NOT NULL,
   `vehicle_cat_id` int(11) NOT NULL,
   `rate_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL,
@@ -79,21 +80,20 @@ CREATE TABLE `parking` (
   `out_time` varchar(255) NOT NULL,
   `total_time` varchar(255) NOT NULL,
   `earned_amount` varchar(255) NOT NULL,
-  `paid_status` int(11) NOT NULL
+  `paid_status` int(1) NOT NULL,
+  `vehicle_status` int(2) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `parking`
 --
 
-INSERT INTO `parking` (`id`, `parking_code`, `vehicle_cat_id`, `rate_id`, `slot_id`, `in_time`, `out_time`, `total_time`, `earned_amount`, `paid_status`) VALUES
-(6, 'P-AB9C3F', 3, 3, 1, '1677917562', '1678072550', '44', '35', 1),
-(9, 'P-BD3936', 1, 1, 2, '1678072869', '1678089399', '5', '50', 1),
-(10, 'P-194548', 3, 3, 1, '1678089535', '1678089569', '1', '35', 1),
-(11, 'P-CBBE6A', 2, 2, 2, '1678089544', '1678089577', '1', '30', 1),
-(12, 'P-A92B6B', 2, 2, 6, '1678089549', '1678089574', '1', '30', 1),
-(13, 'P-36DA23', 3, 3, 1, '1678090571', '1678090574', '1', '35', 1),
-(14, 'P-6A91F5', 11, 8, 7, '1678263326', '1678263353', '1', '200', 1);
+INSERT INTO `parking` (`id`, `parking_code`, `customer`, `vehicle_cat_id`, `rate_id`, `slot_id`, `in_time`, `out_time`, `total_time`, `earned_amount`, `paid_status`, `vehicle_status`, `user_id`) VALUES
+(1, 'P-69B835', 'Joseph Santos', 1, 1, 4, '1682737675', '1682750861', '4', '50', 1, 0, 1),
+(2, 'P-90F2AE', 'asdsad', 1, 1, 1, '1682750909', '1682750947', '1', '50', 1, 0, 1),
+(3, 'P-FE0D8C', 'Migo', 1, 1, 2, '1682755286', '1682755342', '1', '50', 1, 0, 1),
+(4, 'P-056A0F', 'ssdsd', 3, 3, 5, '1682757375', '1682757379', '1', '35', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,8 @@ INSERT INTO `rate` (`id`, `rate_name`, `vehicle_cat_id`, `type`, `rate`, `active
 (1, 'Vehicle Parking Fee', 1, 1, '50', 1),
 (2, 'Motorcycle Parking Fee', 2, 1, '30', 1),
 (3, 'Tricab Parking Fee', 3, 1, '35', 1),
-(8, 'Dump Truck Fee', 11, 1, '200', 1);
+(8, 'Dump Truck Fee', 11, 1, '200', 1),
+(9, '10 Wheeler Vehicle Rate', 11, 1, '150', 1);
 
 -- --------------------------------------------------------
 
@@ -130,18 +131,21 @@ CREATE TABLE `slots` (
   `id` int(11) NOT NULL,
   `slot_name` varchar(255) NOT NULL,
   `active` int(11) NOT NULL,
-  `availability_status` int(11) NOT NULL
+  `availability_status` int(11) NOT NULL,
+  `vehicle_cat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `slots`
 --
 
-INSERT INTO `slots` (`id`, `slot_name`, `active`, `availability_status`) VALUES
-(1, 'Slot 1', 1, 1),
-(2, 'Slot 2', 1, 1),
-(6, 'Slot 3', 1, 1),
-(7, 'Slot 4', 1, 1);
+INSERT INTO `slots` (`id`, `slot_name`, `active`, `availability_status`, `vehicle_cat_id`) VALUES
+(1, 'Slot 1', 1, 1, 1),
+(2, 'Slot 2', 1, 1, 1),
+(3, 'Slot 1', 1, 1, 2),
+(4, 'Slot 3', 1, 1, 1),
+(5, 'Slot 1', 1, 1, 3),
+(6, '1', 1, 1, 11);
 
 -- --------------------------------------------------------
 
@@ -165,7 +169,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `phone`, `gender`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'john', 'doe', '80789998', 1);
+(1, 'admin', '0192023a7bbd73250516f069df18b500', 'admin@gmail.com', 'john', 'doe', '80789998', 1),
+(8, 'test1', '5f4dcc3b5aa765d61d8327deb882cf99', 'test@gmail.com', 'test', 'test', '123123123123', 1),
+(11, 'asdasd', 'a3dcb4d229de6fde0db5686dee47145d', 'asdasd@gmail.com', 'asd', 'asd', '23123123213', 1);
 
 -- --------------------------------------------------------
 
@@ -190,7 +196,9 @@ INSERT INTO `user_group` (`id`, `user_id`, `group_id`) VALUES
 (5, 4, 6),
 (6, 5, 5),
 (7, 6, 5),
-(8, 7, 6);
+(8, 7, 6),
+(9, 8, 5),
+(10, 11, 6);
 
 -- --------------------------------------------------------
 
@@ -234,7 +242,10 @@ ALTER TABLE `groups`
 -- Indexes for table `parking`
 --
 ALTER TABLE `parking`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer` (`customer`),
+  ADD KEY `paid_status` (`paid_status`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `rate`
@@ -246,7 +257,8 @@ ALTER TABLE `rate`
 -- Indexes for table `slots`
 --
 ALTER TABLE `slots`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `vehicle_cat_id` (`vehicle_cat_id`);
 
 --
 -- Indexes for table `users`
@@ -286,37 +298,37 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `parking`
 --
 ALTER TABLE `parking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rate`
 --
 ALTER TABLE `rate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `slots`
 --
 ALTER TABLE `slots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `vehicle_category`
 --
 ALTER TABLE `vehicle_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

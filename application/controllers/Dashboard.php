@@ -9,10 +9,10 @@ class Dashboard extends CI_Controller
         $this->is_logged_in();
 
         $this->load->model('model_slots');
-		$this->load->model('model_users');
-		$this->load->model('model_parking');
-		$this->load->model('model_dashboard');
-		$this->load->model('model_category');
+        $this->load->model('model_users');
+        $this->load->model('model_parking');
+        $this->load->model('model_dashboard');
+        $this->load->model('model_category');
         $this->load->model('model_groups');
         
         $user_id = $this->session->userdata('id');
@@ -37,7 +37,7 @@ class Dashboard extends CI_Controller
     */
     public function index($yr = null)
     {
-        $data['page_title'] = 'Dasboard';
+        $data['page_title'] = 'Dashboard';
 
         $today_year = date('Y');
         if($this->input->post('select_year')) {
@@ -82,9 +82,17 @@ class Dashboard extends CI_Controller
         $vehicle_cat = $this->model_category->get_active_category();
         $final_vehicle_data = array();
         foreach ($vehicle_cat as $k => $v) {
-            $final_vehicle_data[$k] = '"'.$v['name'].'"';	
+            $final_vehicle_data[$k] = '"'.$v['name'].'"';
+        }
+
+        $final_vehicle_datas = array();
+        foreach ($vehicle_cat as $k => $v) {
+            $tslots = $this->model_slots->count_available_slot_by_vehicle($v['id']);
+            $final_vehicle_datas[$k]['vehicle'] = $v;
+            $final_vehicle_datas[$k]['slots'] = $tslots;
         }
         $data['vehicle_cat'] = $final_vehicle_data;
+        $data['vehicle_datas'] = $final_vehicle_datas;
 
 
         $final_total_vehicle_data = array();

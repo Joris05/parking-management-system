@@ -6,63 +6,92 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
-    <!-- Content Row -->
     <div class="row">
-
-        <!-- Total Parking Slots Card -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Parking Slots</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php echo $total_slots; ?>
+        <!-- Content Column -->
+        <div class="col-lg-4 mb-4">
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Available Parking Slots</h6>
+                </div>
+                <div class="card-body" style="min-height:308px">
+                    <div class="list-group list-group-flush">
+                        <?php 
+                             foreach ($vehicle_datas as $k => $v) {
+                        ?>
+                        <div class="list-group-item d-flex align-items-center justify-content-between small px-0 py-2">
+                            <div class="me-3">
+                                <i class="fas fa-circle fa-sm me-1 text-green"></i>
+                                <?php echo $v['vehicle']['name']; ?>
+                            </div>
+                            <div class="fw-500 text-dark">
+                            <?php echo $v['slots']['total_available']; ?>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-parking fa-2x text-gray-300"></i>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-8 mb-4">
+            <div class="row">
 
-        <!-- Total Users Card -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php echo $total_users; ?>
+                <!-- Total Parking Slots Card -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Parking Slots</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $total_slots; ?>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-parking fa-2x text-gray-300"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Total Parking</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php echo $total_parking; ?>
+                <!-- Total Users Card -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Total Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $total_users; ?>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-signal fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+
+                <!-- Pending Requests Card Example -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Total Parking</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $total_parking; ?>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-signal fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,6 +153,5 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->

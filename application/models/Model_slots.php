@@ -21,10 +21,11 @@ class Model_slots extends CI_Model
         return $query->num_rows();
     }
 
-    public function check_slot($slot_name)
+    public function check_slot($slot_name, $id)
     {
         $this->db->select('*');
         $this->db->where('slot_name', $slot_name);
+        $this->db->where('vehicle_cat_id ', $id);
         $query = $this->db->get('slots'); 
         $result = $query->num_rows();
         if($result == 1){
@@ -35,11 +36,12 @@ class Model_slots extends CI_Model
         }
     }
 
-    public function check_other_slot($slot_name, $id)
+    public function check_other_slot($slot_name, $catid, $id)
     {
         $this->db->select('*');
         $this->db->where('id != "' . $id . '"');
         $this->db->where('slot_name', $slot_name);
+        $this->db->where('vehicle_cat_id', $catid);
         $query = $this->db->get('slots'); 
         $result = $query->num_rows();
         if($result == 1){
@@ -109,5 +111,27 @@ class Model_slots extends CI_Model
         else{
             return false;
         }
+    }
+
+    public function get_available_slot_by_vehicle($id)
+    {
+        $this->db->select('*');
+        $this->db->where('availability_status', 1);
+        $this->db->where('active', 1);
+        $this->db->where('vehicle_cat_id', $id);
+        $query = $this->db->get('slots'); 
+        $result = $query->result_array();
+        return $result;
+    }
+
+    public function count_available_slot_by_vehicle($id)
+    {
+        $this->db->select('count(id) as total_available');
+        $this->db->where('availability_status', 1);
+        $this->db->where('active', 1);
+        $this->db->where('vehicle_cat_id', $id);
+        $query = $this->db->get('slots'); 
+        $result = $query->row_array();
+        return $result;
     }
 }

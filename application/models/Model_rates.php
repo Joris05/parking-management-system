@@ -69,6 +69,16 @@ class Model_rates extends CI_Model
         return $query->result_array();
     }
 
+    public function get_category_rate_details($id)
+    {
+        $this->db->select('*');
+        $this->db->where('vehicle_cat_id', $id);
+        $this->db->where('active', 1);
+        $query = $this->db->get('rate'); 
+         $result = $query->row_array();
+        return $result;
+    }
+
 	public function update($data, $id)
     {
         $this->db->where('id', $id);

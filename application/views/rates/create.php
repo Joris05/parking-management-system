@@ -31,16 +31,6 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <label>Type</label>
-                    <div class="form-group">
-                        <select
-                            name="type"
-                            required="true"
-                            class="form-control">
-                            <option value="">Select Rate</option>
-                            <option value="1">Fixed</option>
-                        </select>
-                    </div>
                     <label>Rate</label>
                     <div class="form-group">
                         <input

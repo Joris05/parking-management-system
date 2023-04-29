@@ -9,6 +9,7 @@ class Slots extends CI_Controller
         $this->is_logged_in();
         $this->load->model('model_slots');
         $this->load->model('model_groups');
+        $this->load->model('model_category');
 
         $user_id = $this->session->userdata('id');
         $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
@@ -43,6 +44,16 @@ class Slots extends CI_Controller
         $slot_data = $this->model_slots->get_slots();
 		$data['slot_data'] = $slot_data;
 
+        $result = array();
+		foreach ($slot_data as $k => $v) {
+			$result[$k]['slot'] = $v;
+			$category_data = $this->model_category->get_category_details($v['vehicle_cat_id']);
+
+			$result[$k]['category'] = $category_data;
+		}
+
+        $data['slot_datas'] = $result;
+
         $this->load->view('template/header', $data);
         $this->load->view('template/side_menubar');
         $this->load->view('template/header_menu');
@@ -64,20 +75,23 @@ class Slots extends CI_Controller
 
         $data['page_title'] = 'Add Slot';
 
+        $this->form_validation->set_rules('vehicle_cat', 'Vehicle Category', 'required|trim');
         $this->form_validation->set_rules('slot_name', 'Slot name', 'required|trim');
 		$this->form_validation->set_rules('status', 'Status', 'required|trim');
 
         if ($this->form_validation->run() == TRUE) {
             /* table column slots and html post fields */
+            $vehicle_category = $this->input->post('vehicle_cat');
             $slot_name = $this->input->post('slot_name');
             $status = $this->input->post('status');
             $data = array(
         		'slot_name' => $slot_name,
         		'active' => $status,
-        		'availability_status' => 1
+        		'availability_status' => 1,
+                'vehicle_cat_id' => $vehicle_category
         	);
 
-            $check = $this->model_slots->check_slot($slot_name);
+            $check = $this->model_slots->check_slot($slot_name, $vehicle_category);
 
             if($check == false){
                 $create = $this->model_slots->create($data);
@@ -91,15 +105,16 @@ class Slots extends CI_Controller
                 }
             }
             else{
-                $this->session->set_flashdata('error', 'Slot Name is already exist!!');
+                $this->session->set_flashdata('error', 'Slot Name is already exist on this category!!');
                 redirect('slots/create', 'refresh');
             }
         }
         else{
+            $data['vehicle_cat'] = $this->model_category->get_category();
             $this->load->view('template/header', $data);
             $this->load->view('template/side_menubar');
             $this->load->view('template/header_menu');
-            $this->load->view('slots/create');
+            $this->load->view('slots/create', $data);
             $this->load->view('template/footer');
         }
     }
@@ -119,19 +134,22 @@ class Slots extends CI_Controller
         if($id){
             $data['page_title'] = 'Edit Slot';
 
+            $this->form_validation->set_rules('vehicle_cat', 'Vehicle Category', 'required|trim');
             $this->form_validation->set_rules('slot_name', 'Slot name', 'required|trim');
             $this->form_validation->set_rules('status', 'Status', 'required|trim');
 
             if ($this->form_validation->run() == TRUE) {
                 /* table column slots and html post fields */
+                $vehicle_category = $this->input->post('vehicle_cat');
                 $slot_name = $this->input->post('slot_name');
                 $status = $this->input->post('status');
                 $data = array(
                     'slot_name' => $slot_name,
                     'active' => $status,
+                    'vehicle_cat_id' => $vehicle_category
                 );
 
-                $check = $this->model_slots->check_other_slot($slot_name, $id);
+                $check = $this->model_slots->check_other_slot($slot_name, $vehicle_category, $id);
 
                 if($check == false){
                     $create = $this->model_slots->update($data, $id);
@@ -145,7 +163,7 @@ class Slots extends CI_Controller
                     }
                 }
                 else{
-                    $this->session->set_flashdata('error', 'Slot Name is already exist!!');
+                    $this->session->set_flashdata('error', 'Slot Name is already exist on this category!!');
                     redirect('slots/edit/' . $id, 'refresh');
                 }
             }
@@ -154,6 +172,7 @@ class Slots extends CI_Controller
                     Get the details of the Slot by ID in the database
                 */
                 $data['slot_data'] = $this->model_slots->get_slot_details($id);
+                $data['vehicle_cat'] = $this->model_category->get_category();
                 $this->load->view('template/header', $data);
                 $this->load->view('template/side_menubar');
                 $this->load->view('template/header_menu');

@@ -62,7 +62,7 @@ class Model_users extends CI_Model
 
     public function get_user_details($id)
     {
-        $this->db->select('*');
+        $this->db->select('*, CONCAT(firstname, " ", lastname) as full_name');
         $this->db->where('id', $id);
         $query = $this->db->get('users'); 
         $result = $query->row_array();

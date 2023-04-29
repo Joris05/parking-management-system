@@ -75,25 +75,25 @@
                             <td><?php echo $v['category']['name']; ?></td>
                             <td><?php echo $v['rate']['rate_name']; ?></td>
                             <td><?php 
-                            echo '₱ ' . $v['rate']['rate']; ?></td>
+                            echo '₱ ' . number_format((float)$v['rate']['rate'], 2, '.', ''); ?></td>
                             <td><?php echo $v['slot']['slot_name']; ?></td>
                             <td>Fixed</td>
                             <td>
-                                <?php if($v['parking']['paid_status'] == 1){ 
-                                    echo '<label class="badge badge-success">Paid</label>';
+                                <?php if($v['parking']['vehicle_status'] == 0){ 
+                                    echo '<label class="badge badge-success">Unparked</label>';
                                 }
                                 else {
-                                    echo '<label class="badge badge-warning">Not Paid</label>'; 
+                                    echo '<label class="badge badge-warning">Parked</label>'; 
                                 }
                                 ?> 
                             </td>
                             <?php if(in_array('updateParking', $user_permission) || in_array('deleteParking', $user_permission) || in_array('viewParking', $user_permission)): ?>
                             <td>
-                                <?php if(in_array('updateParking', $user_permission)): ?>
+                                <?php if(in_array('updateParking', $user_permission) && $v['parking']['vehicle_status'] == 1): ?>
                                     <a
-                                    href="<?php echo base_url('parking/edit/'.$v['parking']['id']) ?>"
+                                    onclick="unparked(<?php echo $v['parking']['id'] ?>)"
                                     class="btn btn-primary btn-sm">
-                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-arrow-right"></i>
                                     </a>
                                 <?php endif; ?>
                                 <?php if(in_array('deleteParking', $user_permission)): ?>

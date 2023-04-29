@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>Slot Name</th>
-                            <th>Status</th>
+                            <th>Vehicle Category</th>
                             <th>Availability</th>
                             <?php if(in_array('updateSlots', $user_permission) || in_array('deleteSlots', $user_permission)): ?>
                                 <th>Action</th>
@@ -40,19 +40,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($slot_data as $data) { ?>
+                        <?php foreach ($slot_datas as $k => $v) { ?>
                             <tr>
-                                <td><?php echo $data['slot_name'] ?></td>
+                                <td><?php echo $v['slot']['slot_name'] ?></td>
                                 <td>
-                                    <?php if($data['active'] == 1) { ?>
-                                    <span class="badge badge-success">Active</span>
-                                    <?php } 
-                                    else { ?>
-                                    <span class="badge badge-warning">Inactive</span>
-                                    <?php } ?>
+                                   <?php echo $v['category']['name'];?>
                                 </td>
                                 <td>
-                                    <?php if($data['availability_status'] == 1) { ?>
+                                    <?php if($v['slot']['availability_status'] == 1) { ?>
                                     <span class="badge badge-success">Yes</span>
                                     <?php } 
                                     else { ?>
@@ -63,7 +58,7 @@
                                 <td>
                                     <?php if(in_array('updateSlots', $user_permission)): ?>
                                         <a 
-                                            href="<?php echo base_url('slots/edit/'.$data['id']); ?>"
+                                            href="<?php echo base_url('slots/edit/'.$v['slot']['id']); ?>"
                                             title="edit"
                                             class="btn btn-primary btn-sm">
                                             <i class="fas fa-edit"></i>
@@ -71,7 +66,7 @@
                                     <?php endif; ?>
                                     <?php if(in_array('deleteSlots', $user_permission)): ?>
                                         <a 
-                                            href="#" onclick="deleteSlots('<?php echo $data['id']; ?>')"
+                                            href="#" onclick="deleteSlots('<?php echo $v['slot']['id']; ?>')"
                                             title="delete"
                                             class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i>

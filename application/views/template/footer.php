@@ -51,14 +51,14 @@
             ?>;
         var vehicle_list = <?php
             if(@$vehicle_cat){
-                echo '[' . implode(',', $vehicle_cat) . ']'; 
+                echo '[' . implode(',', @$vehicle_cat) . ']'; 
             }else{
                 echo '[]';
             }
         ?>;
         var total_per_vehicle = <?php 
             if(@$total_per_vehicle){
-                echo '[' . implode(',', $total_per_vehicle) . ']';
+                echo '[' . implode(',', @$total_per_vehicle) . ']';
             }else{
                 echo '[]';
             }
@@ -149,6 +149,15 @@
                     $("#vehicle_rate").html(response);
                 }
             });
+
+            $.ajax({
+                url: <?php echo "'". base_url('parking/get_slot_by_vihecle/') . "'"; ?>  + value,
+                type: 'post',
+                dataType: 'json',
+                success:function(response) {
+                    $("#parking_slot").html(response);
+                }
+            });
         });
 
         function getTotalEarningPerYear(yr){
@@ -165,7 +174,12 @@
             // document.body.innerHTML = restorePage;
             location.reload();
         } 
-        window.onafterprint = location.reload; 
+        window.onafterprint = location.reload;
+
+        function unparked(id) {
+            if (!confirm('Are you sure you want to unparked this slot? \n Click Ok to proceed.')) return false;
+            window.location = '<?php echo base_url('parking/unparked/'); ?>' + id;
+        }
     </script>
 
 </body>

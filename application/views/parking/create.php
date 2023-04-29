@@ -8,18 +8,6 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <form action="<?php echo base_url('parking/create'); ?>" method="post">
-                    <label>Slot</label>
-                    <div class="form-group">
-                        <select
-                            name="parking_slot"
-                            required="true"
-                            class="form-control">
-                            <option value="">Select Slot</option>
-                            <?php foreach ($slot_data as $k => $v): ?>
-                                <option value="<?php echo $v['id'] ?>"><?php echo $v['slot_name']; ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
                     <label>Category</label>
                     <div class="form-group">
                         <select
@@ -34,6 +22,16 @@
                             </select>
                         </select>
                     </div>
+                    <label>Slot</label>
+                    <div class="form-group">
+                        <select
+                            name="parking_slot"
+                            id="parking_slot"
+                            required="true"
+                            class="form-control">
+                            <option value="">Select Slot</option>
+                        </select>
+                    </div>                    
                     <label>Rate</label>
                     <div class="form-group">
                         <select

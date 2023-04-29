@@ -13,6 +13,7 @@ class Parking extends CI_Controller
         $this->load->model('model_rates');
         $this->load->model('model_company');
 		$this->load->model('model_groups');
+		$this->load->model('model_users');
 
         $user_id = $this->session->userdata('id');
         $this->group_data = $this->model_groups->get_user_group_by_user($user_id);
@@ -99,7 +100,9 @@ class Parking extends CI_Controller
         		'rate_id' => $vehicle_rate,
         		'slot_id' => $parking_slot,
         		'in_time' => strtotime('now'),
-        		'paid_status' => 0
+        		'paid_status' => 1,
+				'vehicle_status	' => 1,
+				'user_id' => $this->session->userdata('id')
         	);
             /* insert into the table parking */
         	$create = $this->model_parking->create($data);
@@ -139,7 +142,7 @@ class Parking extends CI_Controller
             $this->load->view('template/side_menubar');
             $this->load->view('template/header_menu');
             $this->load->view('parking/create', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
 		}
     }
 
@@ -337,6 +340,63 @@ class Parking extends CI_Controller
         }
     }
 
+	/*
+		Get the slot by vehicle
+	*/
+	public function get_slot_by_vihecle($id) {
+		if($id){
+            $rate_data = $this->model_slots->get_available_slot_by_vehicle($id);
+			$html = '';
+			foreach ($rate_data as $k => $v) {
+				$html .= '<option value="'.$v['id'].'">'.$v['slot_name'].'</option>';
+			}
+			
+			echo json_encode($html);
+        }
+	}
+
+	/*
+		Update status parked to unparked
+	*/
+	public function unparked($id) {
+		if($id) {
+			// get the data of parking data
+			$data = $this->model_parking->get_parking_details($id);
+
+			$check_in_time = $data['in_time'];
+			$rate_id = $data['rate_id'];
+			$slot_id = $data['slot_id'];
+
+			$checkout_time = strtotime('now');
+			// calculates the time by hourly
+			$total_time = ceil((abs($checkout_time - $check_in_time) / 60) / 60);
+			// get rates
+			$rate_data = $this->model_rates->get_rates_details($rate_id);
+
+			$update_data = array(
+				'out_time' => $checkout_time,
+				'vehicle_status' => 0,
+				'total_time' => $total_time,
+				'earned_amount' => $rate_data['rate']
+			);
+
+			$updatePayment = $this->model_parking->update($update_data, $id);
+
+			if($updatePayment == true) {
+				$slot_update_data = array(
+					'availability_status' => 1
+				); 
+				$update_slot_ops = $this->model_slots->update($slot_update_data, $slot_id);
+    			$this->session->set_flashdata('success', 'Successfully paid.');
+	    		redirect('parking', 'refresh');	
+    		}
+    		else {
+    			$this->session->set_flashdata('payment_error', 'Error occurred!!');
+        		redirect('parking', 'refresh');	
+    		}
+		}
+	}
+
     /*
         Print invoice
     */
@@ -348,7 +408,11 @@ class Parking extends CI_Controller
 
 			// get the vehicle type 
 			$vehicle_category = $this->model_category->get_category_details($parking_data['vehicle_cat_id']);
-
+			// get the vehicle rate
+			$rate = $this->model_rates->get_category_rate_details($vehicle_category['id']);
+			// get the user details
+			$user = $this->model_users->get_user_details($parking_data['user_id']);
+			
 			$check_in_date = date("Y-m-d", $parking_data['in_time']);
 			$check_in = date("h:i a", $parking_data['in_time']);
 			$slot = $this->model_slots->get_slot_details($parking_data['slot_id']);
@@ -372,12 +436,18 @@ class Parking extends CI_Controller
 				<body>
 					<div class="main-content">
 						<div class="company-info">
+							<div class="title-name"><h3>Calape Cockers Arena</h3></div>
 							<div class="company-name"><p>'.$company_info['name'].'</p></div>
 							<div class="company-address"><p>'.$company_info['address'].'</p></div>
 							<div class="parking-slip"><h2>Parking Slip</h2></div>
 						</div>
 						<div class="parking-info">
 							<table class="table">
+								<tr>
+									<td>
+										Cashier Name: '.ucwords(strtolower($user['full_name'])).'
+									</td>
+								</tr>
 								<tr>
 									<td>Date: '.$check_in_date.'</td>
 									<td>Time: '.$check_in.'</td>
@@ -388,6 +458,7 @@ class Parking extends CI_Controller
 								</tr>
 								<tr>
 									<td>Vehicle type: '.ucwords($vehicle_category['name']).' </td>
+									<td>Rate : ₱ '.number_format((float)$rate['rate'], 2, '.', '').'</td>
 								</tr>
 								<tr>
 									<td>Customer Name: '.$parking_data['customer'].' </td>
