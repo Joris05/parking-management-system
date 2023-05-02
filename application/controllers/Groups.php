@@ -22,7 +22,7 @@ class Groups extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -83,16 +83,16 @@ class Groups extends CI_Controller
                 $create = $this->model_groups->create($data);
                 if($create == true) {
                     $this->session->set_flashdata('success', 'Successfully created');
-                    redirect('groups', 'refresh');
+                    redirect('admin/groups', 'refresh');
                 }
                 else {
                     $this->session->set_flashdata('errors', 'Error occurred!!');
-                    redirect('groups/create', 'refresh');
+                    redirect('admin/groups/create', 'refresh');
                 }
             }
             else{
                 $this->session->set_flashdata('error', 'Group Name is already exist!!');
-                redirect('groups/create', 'refresh');
+                redirect('admin/groups/create', 'refresh');
             }
         }
         else {
@@ -141,16 +141,16 @@ class Groups extends CI_Controller
                     $update = $this->model_groups->update($data, $id);
                     if($update == true) {
                         $this->session->set_flashdata('success', 'Successfully updated');
-                        redirect('groups', 'refresh');
+                        redirect('admin/groups', 'refresh');
                     }
                     else {
                         $this->session->set_flashdata('errors', 'Error occurred!!');
-                        redirect('groups/edit/' . $id, 'refresh');
+                        redirect('admin/groups/edit/' . $id, 'refresh');
                     }
                 }
                 else{
                     $this->session->set_flashdata('error', 'Group Name is already exist!!');
-                    redirect('groups/edit/' . $id, 'refresh');
+                    redirect('admin/groups/edit/' . $id, 'refresh');
                 }
             }
             else {
@@ -179,11 +179,11 @@ class Groups extends CI_Controller
             $delete = $this->model_groups->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('groups', 'refresh');
+                redirect('admin/groups', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('groups', 'refresh');
+                redirect('admin/groups', 'refresh');
             }
         }
     }

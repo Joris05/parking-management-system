@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
     <?php if(in_array('createGroup', $user_permission)): ?>
-        <a href="<?php echo base_url('groups/create'); ?>" class="btn btn-primary mb-2">
+        <a href="<?php echo base_url('admin/groups/create'); ?>" class="btn btn-primary mb-2">
             <i class="fas fa-plus"></i> Add Group
         </a>
     <?php endif; ?>
@@ -45,7 +45,7 @@
                                 <td>
                                     <?php if(in_array('updateGroup', $user_permission)): ?>
                                     <a 
-                                        href="<?php echo base_url('groups/edit/'.$data['id']); ?>"
+                                        href="<?php echo base_url('admin/groups/edit/'.$data['id']); ?>"
                                         title="edit"
                                         class="btn btn-primary btn-sm">
                                         <i class="fas fa-edit"></i>

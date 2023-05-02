@@ -47,7 +47,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('slots'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/slots'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

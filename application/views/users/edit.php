@@ -118,7 +118,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('users'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/users'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

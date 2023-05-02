@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
     <?php if(in_array('createRates', $user_permission)): ?>
-        <a href="<?php echo base_url('rates/create'); ?>" class="btn btn-primary mb-2">
+        <a href="<?php echo base_url('admin/rates/create'); ?>" class="btn btn-primary mb-2">
             <i class="fas fa-plus"></i> Add Rate
         </a>
     <?php endif; ?>
@@ -60,7 +60,7 @@
                                 <td>
                                     <?php if(in_array('updateRates', $user_permission)): ?>
                                     <a
-                                      href="<?php echo base_url('rates/edit/'.$v['rate_info']['id']) ?>"
+                                      href="<?php echo base_url('admin/rates/edit/'.$v['rate_info']['id']) ?>"
                                       class="btn btn-primary btn-sm"><i
                                       class="fa fa-edit"></i></a>
                                     <?php endif; ?>

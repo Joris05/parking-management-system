@@ -23,7 +23,7 @@ class Rates extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -101,11 +101,11 @@ class Rates extends CI_Controller
                 $create = $this->model_rates->create($data);
                 if($create == true){
                     $this->session->set_flashdata('success', 'Successfully created');
-                    redirect('rates', 'refresh');
+                    redirect('admin/rates', 'refresh');
                 }
                 else{
                     $this->session->set_flashdata('error', 'Error occurred!!');
-                    redirect('rates/create', 'refresh');
+                    redirect('admin/rates/create', 'refresh');
                 }
             }
             else{
@@ -169,11 +169,11 @@ class Rates extends CI_Controller
                     $create = $this->model_rates->update($data, $id);
                     if($create == true){
                         $this->session->set_flashdata('success', 'Successfully created');
-                        redirect('rates', 'refresh');
+                        redirect('admin/rates', 'refresh');
                     }
                     else{
                         $this->session->set_flashdata('error', 'Error occurred!!');
-                        redirect('rates/edit/' . $id, 'refresh');
+                        redirect('admin/rates/edit/' . $id, 'refresh');
                     }
                 }
                 else{
@@ -214,11 +214,11 @@ class Rates extends CI_Controller
             $delete = $this->model_rates->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('rates', 'refresh');
+                redirect('admin/rates', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('rates', 'refresh');
+                redirect('admin/rates', 'refresh');
             }
         }
     }

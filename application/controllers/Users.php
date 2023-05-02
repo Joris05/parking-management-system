@@ -22,7 +22,7 @@ class Users extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -112,11 +112,11 @@ class Users extends CI_Controller
                 );
                 $this->model_users->create_user_group($group_data);
         		$this->session->set_flashdata('success', 'Successfully created');
-        		redirect('users', 'refresh');
+        		redirect('admin/users', 'refresh');
         	}
         	else {
         		$this->session->set_flashdata('error', 'Error occurred!!');
-        		redirect('users/create', 'refresh');
+        		redirect('admin/users/create', 'refresh');
         	}
         }
         else {
@@ -182,11 +182,11 @@ class Users extends CI_Controller
                         );
                         $this->model_users->update_user_group($group_data, $id);
 		        		$this->session->set_flashdata('success', 'Successfully updated');
-		        		redirect('users', 'refresh');
+		        		redirect('admin/users', 'refresh');
 		        	}
 		        	else {
 		        		$this->session->set_flashdata('error', 'Error occurred!!');
-		        		redirect('users/edit/'.$id, 'refresh');
+		        		redirect('admin/users/edit/'.$id, 'refresh');
 		        	}
                 }else{
                     $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
@@ -210,11 +210,11 @@ class Users extends CI_Controller
                             );
                             $this->model_users->update_user_group($group_data, $id);
                             $this->session->set_flashdata('success', 'Successfully updated');
-                            redirect('users', 'refresh');
+                            redirect('admin/users', 'refresh');
                         }
                         else {
                             $this->session->set_flashdata('error', 'Error occurred!!');
-                            redirect('users/edit/'.$id, 'refresh');
+                            redirect('admin/users/edit/'.$id, 'refresh');
                         }
                     }else{
                         $user_data = $this->model_users->get_user_details($id);
@@ -264,11 +264,11 @@ class Users extends CI_Controller
             $delete = $this->model_users->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('users', 'refresh');
+                redirect('admin/users', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('users', 'refresh');
+                redirect('admin/users', 'refresh');
             }
         }
     }
@@ -345,11 +345,11 @@ class Users extends CI_Controller
 
                 if($update == true) {
                     $this->session->set_flashdata('success', 'Successfully updated');
-                    redirect('users/setting', 'refresh');
+                    redirect('admin/users/setting', 'refresh');
                 }
                 else {
                     $this->session->set_flashdata('error', 'Error occurred!!');
-                    redirect('users/setting', 'refresh');
+                    redirect('admin/users/setting', 'refresh');
                 }
             }else{
                 $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');

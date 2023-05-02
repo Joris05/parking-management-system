@@ -22,7 +22,7 @@ class Category extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -80,16 +80,16 @@ class Category extends CI_Controller
                 $create = $this->model_category->create($data);
                 if($create == true){
                     $this->session->set_flashdata('success', 'Successfully created');
-                    redirect('category', 'refresh');
+                    redirect('admin/category', 'refresh');
                 }
                 else{
                     $this->session->set_flashdata('error', 'Error occurred!!');
-                    redirect('category/create', 'refresh');
+                    redirect('admin/category/create', 'refresh');
                 }
             }
             else{
                 $this->session->set_flashdata('error', 'Category Name is already exist!!');
-                redirect('category/create', 'refresh');
+                redirect('admin/category/create', 'refresh');
             }
         }
         else{
@@ -134,16 +134,16 @@ class Category extends CI_Controller
                     $create = $this->model_category->update($data, $id);
                     if($create == true){
                         $this->session->set_flashdata('success', 'Successfully updated');
-                        redirect('category', 'refresh');
+                        redirect('admin/category', 'refresh');
                     }
                     else{
                         $this->session->set_flashdata('error', 'Error occurred!!');
-                        redirect('category/edit' . $id, 'refresh');
+                        redirect('admin/category/edit' . $id, 'refresh');
                     }
                 }
                 else{
                     $this->session->set_flashdata('error', 'Category Name is already exist!!');
-                    redirect('category/edit/' . $id, 'refresh');
+                    redirect('admin/category/edit/' . $id, 'refresh');
                 }
             }
             else{
@@ -172,11 +172,11 @@ class Category extends CI_Controller
             $delete = $this->model_category->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('category', 'refresh');
+                redirect('admin/category', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('category', 'refresh');
+                redirect('admin/category', 'refresh');
             }
         }
     }

@@ -7,7 +7,7 @@
     <div class="col-md-4">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="<?php echo base_url('parking/create'); ?>" method="post">
+                <form action="<?php echo base_url('admin/parking/create'); ?>" method="post">
                     <label>Category</label>
                     <div class="form-group">
                         <select
@@ -49,7 +49,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('parking'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/parking'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

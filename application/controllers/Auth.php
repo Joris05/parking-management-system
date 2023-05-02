@@ -17,7 +17,7 @@ class Auth extends CI_Controller
     private function is_logged_in()
     {
         if ($this->session->userdata('logged_in') == TRUE) {
-            redirect('/dashboard');
+            redirect('admin/dashboard');
         }
     }
 
@@ -52,7 +52,7 @@ class Auth extends CI_Controller
                         'logged_in' => TRUE
                     );
                     $this->session->set_userdata($login_in_session);
-           			redirect('dashboard', 'refresh');
+           			redirect('admin/dashboard', 'refresh');
                 }
                 else{
                     $data['errors'] = 'Incorrect username/password combination';

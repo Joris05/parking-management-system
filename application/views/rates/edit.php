@@ -72,7 +72,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('rates'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/rates'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

@@ -23,7 +23,7 @@ class Reports extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 

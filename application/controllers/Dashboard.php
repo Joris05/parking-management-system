@@ -27,7 +27,7 @@ class Dashboard extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -115,6 +115,6 @@ class Dashboard extends CI_Controller
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('/', 'refresh');
+		redirect('admin/', 'refresh');
 	}
 }

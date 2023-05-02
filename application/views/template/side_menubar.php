@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin/'); ?>">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-parking"></i>
         </div>
@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url('dashboard'); ?>">
+        <a class="nav-link" href="<?php echo base_url('admin/dashboard'); ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -39,10 +39,10 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <?php if(in_array('createParking', $user_permission)): ?>
-                    <a class="collapse-item" href="<?php echo base_url('parking/create'); ?>">Add Parking</a>
+                    <a class="collapse-item" href="<?php echo base_url('admin/parking/create'); ?>">Add Parking</a>
                 <?php endif; ?>
                 <?php if(in_array('updateParking', $user_permission) || in_array('viewParking', $user_permission) || in_array('deleteParking', $user_permission)): ?>
-                    <a class="collapse-item" href="<?php echo base_url('parking'); ?>">Manage Parking</a>
+                    <a class="collapse-item" href="<?php echo base_url('admin/parking'); ?>">Manage Parking</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -51,7 +51,7 @@
 
     <?php if(in_array('viewReports', $user_permission)): ?>
     <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('reports'); ?>">
+        <a class="nav-link" href="<?php echo base_url('admin/reports'); ?>">
             <i class="fas fa-fw fa-print"></i>
             <span>Reports</span>
         </a>
@@ -79,10 +79,10 @@
                     <div id="collapseUsers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?php if(in_array('createUser', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('users/create'); ?>">Add User</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/users/create'); ?>">Add User</a>
                             <?php endif; ?>
                             <?php if(in_array('updateUser', $user_permission) || in_array('viewUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('users'); ?>">Manage Users</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/users'); ?>">Manage Users</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -100,10 +100,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?php if(in_array('createGroup', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('groups/create'); ?>">Add Group</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/groups/create'); ?>">Add Group</a>
                             <?php endif; ?>
                             <?php if(in_array('updateGroup', $user_permission) || in_array('viewGroup', $user_permission) || in_array('deleteGroup', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('groups'); ?>">Manage Groups</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/groups'); ?>">Manage Groups</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -122,10 +122,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?php if(in_array('createCategory', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('category/create'); ?>">Add Category</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/category/create'); ?>">Add Category</a>
                             <?php endif; ?>
                             <?php if(in_array('updateCategory', $user_permission) || in_array('viewCategory', $user_permission) || in_array('deleteCategory', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('category'); ?>">Manage Category</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/category'); ?>">Manage Category</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -144,10 +144,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?php if(in_array('createRates', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('rates/create'); ?>">Add Rate</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/rates/create'); ?>">Add Rate</a>
                             <?php endif; ?>
                             <?php if(in_array('updateRates', $user_permission) || in_array('viewRates', $user_permission) || in_array('deleteRates', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('rates'); ?>">Manage Rates</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/rates'); ?>">Manage Rates</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -165,10 +165,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?php if(in_array('createSlots', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('slots/create'); ?>">Add Slot</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/slots/create'); ?>">Add Slot</a>
                             <?php endif; ?>
                             <?php if(in_array('updateSlots', $user_permission) || in_array('viewSlots', $user_permission) || in_array('deleteSlots', $user_permission)): ?>
-                                <a class="collapse-item" href="<?php echo base_url('slots'); ?>">Manage Slot</a>
+                                <a class="collapse-item" href="<?php echo base_url('admin/slots'); ?>">Manage Slot</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                 <?php endif; ?>
                 <?php if(in_array('updateCompany', $user_permission)): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url('company'); ?>">
+                    <a class="nav-link" href="<?php echo base_url('admin/company'); ?>">
                         <i class="fas fa-fw fa-cog"></i>
                         <span>Company</span>
                     </a>

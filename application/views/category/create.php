@@ -7,7 +7,7 @@
     <div class="col-md-4">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="<?php echo base_url('category/create'); ?>" method="post">
+                <form action="<?php echo base_url('admin/category/create'); ?>" method="post">
                     <label>Category Name</label>
                     <div class="form-group">
                         <input
@@ -32,7 +32,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('category'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/category'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

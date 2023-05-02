@@ -23,7 +23,7 @@ class Slots extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -97,16 +97,16 @@ class Slots extends CI_Controller
                 $create = $this->model_slots->create($data);
                 if($create == true){
                     $this->session->set_flashdata('success', 'Successfully created');
-                    redirect('slots', 'refresh');
+                    redirect('admin/slots', 'refresh');
                 }
                 else{
                     $this->session->set_flashdata('error', 'Error occurred!!');
-                    redirect('slots/create', 'refresh');
+                    redirect('admin/slots/create', 'refresh');
                 }
             }
             else{
                 $this->session->set_flashdata('error', 'Slot Name is already exist on this category!!');
-                redirect('slots/create', 'refresh');
+                redirect('admin/slots/create', 'refresh');
             }
         }
         else{
@@ -155,16 +155,16 @@ class Slots extends CI_Controller
                     $create = $this->model_slots->update($data, $id);
                     if($create == true){
                         $this->session->set_flashdata('success', 'Successfully updated');
-                        redirect('slots', 'refresh');
+                        redirect('admin/slots', 'refresh');
                     }
                     else{
                         $this->session->set_flashdata('error', 'Error occurred!!');
-                        redirect('slots/edit/' . $id, 'refresh');
+                        redirect('admin/slots/edit/' . $id, 'refresh');
                     }
                 }
                 else{
                     $this->session->set_flashdata('error', 'Slot Name is already exist on this category!!');
-                    redirect('slots/edit/' . $id, 'refresh');
+                    redirect('admin/slots/edit/' . $id, 'refresh');
                 }
             }
             else{
@@ -195,11 +195,11 @@ class Slots extends CI_Controller
             $delete = $this->model_slots->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('slots', 'refresh');
+                redirect('admin/slots', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('slots', 'refresh');
+                redirect('admin/slots', 'refresh');
             }
         }
     }

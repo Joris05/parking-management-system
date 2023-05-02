@@ -33,7 +33,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('category'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/category'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

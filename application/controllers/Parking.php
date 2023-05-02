@@ -27,7 +27,7 @@ class Parking extends CI_Controller
     private function is_logged_in()
     {
         if (!$this->session->userdata('logged_in') == TRUE) {
-            redirect('/', 'refresh');
+            redirect('admin/', 'refresh');
         }
     }
 
@@ -117,17 +117,17 @@ class Parking extends CI_Controller
 
         		if($create == true && $update_slot == true) {
         			$this->session->set_flashdata('success', 'Successfully created');
-		    		redirect('parking', 'refresh');	
+		    		redirect('admin/parking', 'refresh');	
         		}
         		else {
         			$this->session->set_flashdata('errors', 'Error occurred!!');
-	        		redirect('parking/create', 'refresh');
+	        		redirect('admin/parking/create', 'refresh');
         		}
         		
         	}
         	else {
         		$this->session->set_flashdata('errors', 'Error occurred!!');
-        		redirect('parking/create', 'refresh');
+        		redirect('admin/parking/create', 'refresh');
         	}
         }
         else {
@@ -199,17 +199,17 @@ class Parking extends CI_Controller
 
 	        		if($update_parking_data == true && $update_slot == true) {
 	        			$this->session->set_flashdata('success', 'Successfully updated');
-			    		redirect('parking', 'refresh');	
+			    		redirect('admin/parking', 'refresh');	
 	        		}
 	        		else {
 	        			$this->session->set_flashdata('errors', 'Error occurred!!');
-		        		redirect('parking/edit/' . $id, 'refresh');
+		        		redirect('admin/parking/edit/' . $id, 'refresh');
 	        		}
 	        		
 	        	}
 	        	else {
 	        		$this->session->set_flashdata('errors', 'Error occurred!!');
-	        		redirect('parking/edit/' . $id, 'refresh');
+	        		redirect('admin/parking/edit/' . $id, 'refresh');
 	        	}
             }
             else {
@@ -259,11 +259,11 @@ class Parking extends CI_Controller
             $delete = $this->model_parking->delete($id);
             if($delete == true) {
                 $this->session->set_flashdata('success', 'Successfully removed');
-                redirect('parking', 'refresh');
+                redirect('admin/parking', 'refresh');
             }
             else {
                 $this->session->set_flashdata('error', 'Error occurred!!');
-                redirect('parking', 'refresh');
+                redirect('admin/parking', 'refresh');
             }
         }
     }
@@ -315,11 +315,11 @@ class Parking extends CI_Controller
 				); 
 				$update_slot_ops = $this->model_slots->update($slot_update_data, $slot_id);
     			$this->session->set_flashdata('success', 'Successfully paid.');
-	    		redirect('parking', 'refresh');	
+	    		redirect('admin/parking', 'refresh');	
     		}
     		else {
     			$this->session->set_flashdata('payment_error', 'Error occurred!!');
-        		redirect('parking/edit/'.$id, 'refresh');
+        		redirect('admin/parking/edit/'.$id, 'refresh');
     		}
 		}
     }

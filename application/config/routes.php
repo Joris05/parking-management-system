@@ -1,54 +1,38 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/userguide3/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
-$route['default_controller'] = 'auth/login';
+$route['admin'] = 'auth/login';
+$route['admin/dashboard'] = 'dashboard';
+$route['admin/parking/create'] = 'parking/create';
+$route['admin/parking'] = 'parking';
+$route['admin/parking/print_invoice/(:any)'] = 'parking/print_invoice/$1';
+$route['admin/category/delete/(:any)'] = 'category/delete/$1';
+$route['admin/rates/delete/(:any)'] = 'rates/delete/$1';
+$route['admin/slots/delete/(:any)'] = 'slots/delete/$1';
+$route['admin/parking/delete/(:any)'] = 'parking/delete/$1';
+$route['admin/groups/delete/(:any)'] = 'groups/delete/$1';
+$route['admin/users/delete/(:any)'] = 'users/delete/$1';
+$route['admin/reports'] = 'reports';
+$route['admin/users/create'] = 'users/create';
+$route['admin/users'] = 'users';
+$route['admin/users/edit/(:any)'] = 'users/edit/$1';
+$route['admin/groups'] = 'groups';
+$route['admin/groups/create'] = 'groups/create';
+$route['admin/groups/edit/(:any)'] = 'groups/edit/$1';
+$route['admin/category/create'] = 'category/create';
+$route['admin/category'] = 'category';
+$route['admin/category/edit/(:any)'] = 'category/edit/$1';
+$route['admin/rates/create'] = 'rates/create';
+$route['admin/rates'] = 'rates';
+$route['admin/rates/edit/(:any)'] = 'rates/edit/$1';
+$route['admin/slots/create'] = 'slots/create';
+$route['admin/slots'] = 'slots';
+$route['admin/slots/edit/(:any)'] = 'slots/edit/$1';
+$route['admin/company'] = 'company';
+$route['admin/users/profile'] = 'users/profile';
+$route['admin/users/setting'] = 'users/setting';
+
+$route['default_controller'] = 'welcome';
+$route['contact'] = 'welcome/contact';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

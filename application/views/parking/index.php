@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?php echo $page_title; ?></h1>
     <?php if(in_array('createParking', $user_permission)): ?>
-        <a href="<?php echo base_url('parking/create'); ?>" class="btn btn-primary mb-2">
+        <a href="<?php echo base_url('admin/parking/create'); ?>" class="btn btn-primary mb-2">
             <i class="fas fa-plus"></i> Add Parking
         </a>
     <?php endif; ?>
@@ -34,8 +34,8 @@
                             <th>P-Code</th>
                             <th>Check-In</th>
                             <th>Check-Out</th>
+                            <th>Customer Name</th>
                             <th>Vehicle Type</th>
-                            <th>Rate Name</th>
                             <th>Rate</th>
                             <th>Slot</th>
                             <th style="width:90px">Rate Type</th>
@@ -72,8 +72,8 @@
                                 }
                                 ?>
                             </td>
+                            <td><?php echo $v['parking']['customer']; ?></td>
                             <td><?php echo $v['category']['name']; ?></td>
-                            <td><?php echo $v['rate']['rate_name']; ?></td>
                             <td><?php 
                             echo '₱ ' . number_format((float)$v['rate']['rate'], 2, '.', ''); ?></td>
                             <td><?php echo $v['slot']['slot_name']; ?></td>
@@ -106,7 +106,7 @@
                                 <?php endif; ?>
                                 <?php if(in_array('viewParking', $user_permission)): ?>
                                     <a
-                                    onclick="printParking('<?php echo base_url('parking/print_invoice/'.$v['parking']['id']); ?>')"
+                                    onclick="printParking('<?php echo base_url('admin/parking/print_invoice/'.$v['parking']['id']); ?>')"
                                     class="btn btn-success btn-sm">
                                     <i class="fa fa-print"></i>
                                     </a>

@@ -7,7 +7,7 @@
     <div class="col-md-10">
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form action="<?php echo base_url('groups/create'); ?>" method="post">
+                <form action="<?php echo base_url('admin/groups/create'); ?>" method="post">
                     <label>Group Name</label>
                     <div class="form-group">
                         <input
@@ -106,7 +106,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save
                     </button>
-                    <a href="<?php echo base_url('groups'); ?>" class="btn btn-warning">
+                    <a href="<?php echo base_url('admin/groups'); ?>" class="btn btn-warning">
                         Back
                     </a>
                 </form>

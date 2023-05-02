@@ -60,7 +60,7 @@ class Company extends CI_Controller
         		$this->session->set_flashdata('errors', 'Error occurred!!');
         	}
 
-        	redirect('company', 'refresh');
+        	redirect('admin/company', 'refresh');
         }
         else {
 			$company_data = $this->model_company->get_company($company_id);

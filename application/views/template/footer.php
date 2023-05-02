@@ -91,27 +91,27 @@
     <script>
         function deleteCategory(id){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('category/delete/'); ?>' + id;
+            window.location = '<?php echo base_url('admin/category/delete/'); ?>' + id;
         }
         function deleteRate(id){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('rates/delete/'); ?>' + id;
+            window.location = '<?php echo base_url('admin/rates/delete/'); ?>' + id;
         }
         function deleteSlots(id){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('slots/delete/'); ?>' + id;
+            window.location = '<?php echo base_url('admin/slots/delete/'); ?>' + id;
         }
         function deleteParking(id,slotid){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('parking/delete/'); ?>' + id + '/' + slotid;
+            window.location = '<?php echo base_url('admin/parking/delete/'); ?>' + id + '/' + slotid;
         }
         function deleteGroups(id){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('groups/delete/'); ?>' + id;
+            window.location = '<?php echo base_url('admin/groups/delete/'); ?>' + id;
         }
         function deleteUsers(id){
             if(!confirm('Are you sure you want to remove this record?')) return false;
-            window.location = '<?php echo base_url('users/delete/'); ?>' + id;
+            window.location = '<?php echo base_url('admin/users/delete/'); ?>' + id;
         }
         function printParking(parking_url){
             $.ajax({
@@ -135,7 +135,7 @@
         }
 
         function getParkingData(yr){
-            window.location = '<?php echo base_url('dashboard/index/');?>' + yr;
+            window.location = '<?php echo base_url('admin/dashboard/index/');?>' + yr;
         }
 
         $("#vehicle_cat").on('change', function() {
